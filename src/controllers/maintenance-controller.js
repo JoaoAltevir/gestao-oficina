@@ -1,15 +1,29 @@
 import Maintenance from "../models/maintenance-model.js";
-
+import Vehicle from "../models/vehicle-model.js";
+import Workshop from "../models/workshop-model.js";
 
 export const store = async (req,res) => {
     try {
+        const vehicle = Vehicle.findById(req.body.vehicle)    
+        const workshop = Workshop.findById(req.body.workshop)
+        //processo para calcular o custo total
         req.body.totalCost = 0;
-        console.log(req.body.services.length)
         for(let i = 0; i < req.body.services.length;i++){
-            console.log("entrei")
             req.body.totalCost += req.body.services[i].price
         };
+        //------------------------------------------------
         await Maintenance.create(req.body);
+/*      const content = await Maintenance.create(req.body);
+        const manutencao = content._id
+        if(!vehicle.maintenances.includes(manutencao)){
+            vehicle.maintenances.push(manutencao);
+        }
+        vehicle.save();
+        if(!workshop.maintenances.includes(manutencao)){
+            workshop.maintenances.push(manutencao);
+        }
+        workshop.save();
+*/
         res.json();
     } catch (error) {
         res.status(400).json(error);
