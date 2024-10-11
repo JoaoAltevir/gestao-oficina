@@ -20,7 +20,7 @@ export const index = async (req, res) => {
 
 export const show = async (req,res) => {
     try {
-        const content = await Vehicle.findById(req.params.id).exec();
+        const content = await Vehicle.findById(req.params.id).populate("maintenances").exec();
         res.json(content); 
     } catch (error) {
         res.status(400).json(error);
