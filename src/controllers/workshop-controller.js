@@ -1,4 +1,4 @@
-import Workshop from "../models/workshop-model";
+import Workshop from "../models/workshop-model.js";
 
 export const store = async (req,res) => {
     try {
